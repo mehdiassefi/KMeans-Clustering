@@ -1,7 +1,7 @@
 ############################################################################
 #######           Laplace  Function - not to be used in this code   ########
 #Prepared for the noise injection - (privacy preserved version of K-Means)#
-#################### This part is not used in this version #################
+################## This part is not used in this version ###################
 ############################################################################
 rlaplace = function(n,mu,sigma){
   U = runif(n,0,1)
