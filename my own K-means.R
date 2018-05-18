@@ -1,16 +1,4 @@
-############################################################################
-#######           Laplace  Function - not to be used in this code   ########
-#Prepared for the noise injection - (privacy preserved version of K-Means)#
-################## This part is not used in this version ###################
-############################################################################
-rlaplace = function(n,mu,sigma){
-  U = runif(n,0,1)
-  sign = ifelse(rbinom(n,1,.5)>.5,1,-1)     
-  y = mu + sign*sigma/sqrt(2)*log(1-U)  
-  y
-}
-epsilon = 10/6
-lap <- rlaplace(1,0,((2*25)/epsilon)*((2*25)/epsilon))
+
 #######################################################################
 #############           Distance Function               ###############
 #######################################################################
@@ -91,3 +79,17 @@ dev.off()
 #ktest=as.matrix(test) # Turn into a matrix
 #centers <- ktest[sample(nrow(ktest), 3),] 
 #res <- K_means(ktest, centers, euclid, 3)
+############################################################################
+#######           Laplace  Function - not to be used in this code   ########
+#Prepared for the noise injection - (privacy preserved version of K-Means)#
+################## This part is not used in this version ###################
+############################################################################
+rlaplace = function(n,mu,sigma){
+  U = runif(n,0,1)
+  sign = ifelse(rbinom(n,1,.5)>.5,1,-1)     
+  y = mu + sign*sigma/sqrt(2)*log(1-U)  
+  y
+}
+epsilon = 10/6
+lap <- rlaplace(1,0,((2*25)/epsilon)*((2*25)/epsilon))
+############################################################################
