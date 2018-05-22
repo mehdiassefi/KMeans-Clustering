@@ -1,4 +1,18 @@
 
+############################################################################
+#######           Laplace  Function - not to be used in this code   ########
+#Prepared for the noise injection - (privacy preserved version of K-Means)#
+################## This part is not used in this version ###################
+############################################################################
+rlaplace = function(n,mu,sigma){
+  U = runif(n,0,1)
+  sign = ifelse(rbinom(n,1,.5)>.5,1,-1)     
+  y = mu + sign*sigma/sqrt(2)*log(1-U)  
+  y
+}
+epsilon = 10/6
+lap <- rlaplace(1,0,((2*25)/epsilon)*((2*25)/epsilon))
+############################################################################
 #######################################################################
 #############           Distance Function               ###############
 #######################################################################
@@ -21,9 +35,6 @@ K_means <- function(x, centers, distFun, nItter) {
     distsToCenters <- distFun(x, centers)
     clusters <- apply(distsToCenters, 1, which.min)
     centers <- apply(x, 2, tapply, clusters, mean)
-    #xx = sapply(x, as.numeric)
-    #cc = sapply(clusters, as.numeric)
-    #sse <- apply(xx, 2, tapply, clusters, sum( (xx - mean )^2 ))
     permcenter = sapply(centers, as.numeric)
     perm_center <- matrix(permcenter, ncol=2, nrow=3)
     clusterHistory[[i]] <- clusters
@@ -50,16 +61,8 @@ for (i in seq(1,15))
 {   
   perm = as.vector(sapply(res$clusters[i], as.numeric))
   permcenter = sapply(res$centers[i], as.numeric)
-  #lap_permcenter= permcenter +  lap
   perm_center <- matrix(permcenter, ncol=2, nrow=3)
   plot(data[,1], data[,2],col=perm+1)
-  #perm_center[1,1] = perm_center[1,1] + lap
-  #perm_center[1,2] = perm_center[1,2] + lap
-  #perm_center[2,1] = perm_center[2,1] + lap
-  #perm_center[2,2] = perm_center[2,2] + lap
-  #perm_center[3,1] = perm_center[3,1] + lap
-  #perm_center[3,2] = perm_center[3,2] + lap
-  
   points(perm_center, pch=16)
 } 
 dev.off()
@@ -79,17 +82,3 @@ dev.off()
 #ktest=as.matrix(test) # Turn into a matrix
 #centers <- ktest[sample(nrow(ktest), 3),] 
 #res <- K_means(ktest, centers, euclid, 3)
-############################################################################
-#######           Laplace  Function - not to be used in this code   ########
-#Prepared for the noise injection - (privacy preserved version of K-Means)#
-################## This part is not used in this version ###################
-############################################################################
-rlaplace = function(n,mu,sigma){
-  U = runif(n,0,1)
-  sign = ifelse(rbinom(n,1,.5)>.5,1,-1)     
-  y = mu + sign*sigma/sqrt(2)*log(1-U)  
-  y
-}
-epsilon = 10/6
-lap <- rlaplace(1,0,((2*25)/epsilon)*((2*25)/epsilon))
-############################################################################
